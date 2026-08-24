@@ -56,3 +56,12 @@ jobs:
           build-args: |
             NEXT_PUBLIC_API_URL=${{ github.event.inputs.next_public_api_url || 'http://localhost:4000' }}
           provenance: true
+
+      - name: Scan image with Trivy
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: ghcr.io/corpopay/corpopay-web:latest
+          format: table
+          exit-code: '1'
+          ignore-unfixed: true
+          severity: CRITICAL,HIGH
