@@ -1,0 +1,76 @@
+{
+  "name": "corpopay-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "format": "prettier --write pages components lib",
+    "format:check": "prettier --check pages components lib",
+    "prepare": "husky",
+    "types:fetch": "node scripts/fetch-contract.mjs"
+  },
+  "dependencies": {
+    "@datadog/browser-rum": "^7.9.0",
+    "@hookform/resolvers": "^3.3.4",
+    "@radix-ui/react-alert-dialog": "^1.0.5",
+    "@radix-ui/react-avatar": "^1.0.4",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-separator": "^1.0.3",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-tooltip": "^1.0.7",
+    "@tanstack/react-query": "^5.28.4",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "framer-motion": "^12.34.3",
+    "lucide-react": "^0.474.0",
+    "next": "^16.3.2",
+    "openapi-fetch": "^0.17.0",
+    "qrcode.react": "^4.2.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-hook-form": "^7.51.2",
+    "tailwind-merge": "^2.2.2",
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^20.11.30",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@typescript-eslint/eslint-plugin": "^8.67.0",
+    "@typescript-eslint/parser": "^8.67.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.3.2",
+    "husky": "^9.1.7",
+    "jsdom": "^26.1.0",
+    "knip": "^6.32.2",
+    "lint-staged": "^15.5.2",
+    "msw": "^2.15.0",
+    "postcss": "^8.4.38",
+    "prettier": "^3.9.6",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.3",
+    "vitest": "^4.1.11"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{json,md,css}": [
+      "prettier --write"
+    ]
+  }
+}
