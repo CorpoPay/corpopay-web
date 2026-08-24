@@ -28,7 +28,7 @@ The API's OpenAPI spec is the single source of truth. The web vendors generated
 types via:
 
 ```bash
-npm run types:fetch   # fetches from CorpoPay/corpopay-api (override via CONTRACT_BASE_URL)
+npm i @corpopay/contract   # contract types (published from CorpoPay/corpopay-api)
 ```
 
 Never hand-edit the generated `contract/*` files, or hand-write domain types,
