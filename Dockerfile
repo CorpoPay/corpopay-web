@@ -15,6 +15,10 @@ COPY . .
 
 # Build with standalone output
 ENV NEXT_TELEMETRY_DISABLED=1
+# NEXT_PUBLIC_* is inlined at build time. Default to the local demo API URL;
+# override via --build-arg NEXT_PUBLIC_API_URL=... for real self-host deploys.
+ARG NEXT_PUBLIC_API_URL=http://localhost:4000
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
 RUN npm run build
 
 # ─── Stage 3: Production runner ───────────────────────────────────────────────
