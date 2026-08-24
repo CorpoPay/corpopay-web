@@ -12,10 +12,10 @@
     "test:watch": "vitest",
     "format": "prettier --write pages components lib",
     "format:check": "prettier --check pages components lib",
-    "prepare": "husky",
-    "types:fetch": "node scripts/fetch-contract.mjs"
+    "prepare": "husky"
   },
   "dependencies": {
+    "@corpopay/contract": "^0.1.0",
     "@datadog/browser-rum": "^7.9.0",
     "@hookform/resolvers": "^3.3.4",
     "@radix-ui/react-alert-dialog": "^1.0.5",
