@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { AnimatePresence, motion } from "framer-motion";
 import { Eye, EyeOff, Key, Plus, ShieldOff } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { CopyButton } from "@/components/shared/CopyButton";

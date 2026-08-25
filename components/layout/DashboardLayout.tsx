@@ -1,4 +1,3 @@
-import { AnimatePresence, motion } from "framer-motion";
 import {
   BookOpen,
   Building2,
@@ -14,6 +13,7 @@ import {
   Settings,
   X,
 } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { type ReactNode, useEffect } from "react";

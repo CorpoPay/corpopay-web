@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import type { AppProps } from "next/app";
 import DatadogInit from "@/components/datadog-init";
 import { AuthProvider } from "@/lib/auth";

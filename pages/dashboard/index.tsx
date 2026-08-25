@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { motion } from "framer-motion";
 import {
   ArrowUpRight,
   CheckCircle2,
@@ -9,6 +8,7 @@ import {
   RefreshCcw,
   XCircle,
 } from "lucide-react";
+import { motion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import DashboardLayout from "@/components/layout/DashboardLayout";

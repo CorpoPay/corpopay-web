@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
 import { CheckCircle, CreditCard, Layers, RefreshCw, Shield } from "lucide-react";
+import { motion } from "motion/react";
 import type { GetServerSideProps } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";

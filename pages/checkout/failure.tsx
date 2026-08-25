@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
 import { XCircle } from "lucide-react";
+import { motion } from "motion/react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
