@@ -1,0 +1,79 @@
+#!/usr/bin/env node
+import { readdirSync, readFileSync, statSync } from "node:fs";
+import { join, relative } from "node:path";
+/**
+ * Guard: forbid hand-writing `Transaction` / `TransactionDetail` types.
+ *
+ * These types are owned by the `@corpopay/contract` package. The web must derive
+ * them from `@/lib/api-types` (`components['schemas'][...]`) instead of declaring a
+ * fresh shape, so a local shape can never drift from the API contract.
+ *
+ * Replaces the former ESLint `no-restricted-syntax` rule (Biome has no equivalent
+ * that scopes to *declarations* only). It parses each file with the TypeScript AST,
+ * so it ignores comments, strings, and type *references*.
+ *
+ * A `type Transaction = Omit<components["schemas"]["Transaction"], "amount"> & {...}`
+ * refinement is allowed (it's explicitly derived from the contract); a bare
+ * `interface Transaction {}` or `type Transaction = { ... }` hand-written shape is not.
+ */
+import ts from "typescript";
+
+const ROOTS = ["pages", "components", "lib"];
+const RESTRICTED = new Set(["Transaction", "TransactionDetail"]);
+const SKIP_DIRS = new Set(["node_modules", ".next", "out", "dist", "coverage"]);
+
+const hits = [];
+
+function isHandWritten(node, sourceFile) {
+  const name = node.name?.text ?? "";
+  if (!RESTRICTED.has(name)) return false;
+  // `interface` / `class` declarations are always a fresh, hand-written shape.
+  if (ts.isInterfaceDeclaration(node) || ts.isClassDeclaration(node)) return true;
+  // A `type` alias is only a problem when it doesn't derive from the contract.
+  if (ts.isTypeAliasDeclaration(node)) {
+    return !node.type.getText(sourceFile).includes("components");
+  }
+  return false;
+}
+
+function visit(node, sourceFile, abs) {
+  if (isHandWritten(node, sourceFile)) {
+    const { line } = sourceFile.getLineAndCharacterOfPosition(node.getStart(sourceFile));
+    hits.push(`${relative(process.cwd(), abs)}:${line + 1}`);
+  }
+  ts.forEachChild(node, (child) => visit(child, sourceFile, abs));
+}
+
+function walk(dir) {
+  for (const entry of readdirSync(dir)) {
+    const abs = join(dir, entry);
+    const st = statSync(abs);
+    if (st.isDirectory()) {
+      if (SKIP_DIRS.has(entry)) continue;
+      walk(abs);
+    } else if (/\.(ts|tsx)$/.test(entry)) {
+      const text = readFileSync(abs, "utf8");
+      const sourceFile = ts.createSourceFile(
+        abs,
+        text,
+        ts.ScriptTarget.Latest,
+        true,
+        ts.ScriptKind.TSX,
+      );
+      visit(sourceFile, sourceFile, abs);
+    }
+  }
+}
+
+for (const root of ROOTS) walk(root);
+
+if (hits.length > 0) {
+  console.error(
+    "check-restricted-types: hand-written Transaction/TransactionDetail shape(s) found:\n" +
+      hits.map((h) => `  - ${h}`).join("\n") +
+      "\n\nDerive them from '@/lib/api-types' (components['schemas'][...]) instead.",
+  );
+  process.exit(1);
+}
+
+console.log("check-restricted-types: OK");
