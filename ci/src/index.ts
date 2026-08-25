@@ -1,11 +1,11 @@
-import { dag, Directory, object, func } from "@dagger.io/dagger";
+import { dag, Directory, Secret, object, func } from "@dagger.io/dagger";
 
 /**
  * CorpoPay Web — Dagger CI module.
  *
- * Single source of truth for the portable quality gate (check), invoked from
- * both GitHub Actions and GitLab CI so they stop maintaining divergent check
- * definitions.
+ * Single source of truth for the portable quality gate (check) and the image
+ * build/publish (publish). Both GitHub Actions and GitLab CI invoke these so
+ * they stop maintaining divergent check definitions.
  */
 @object()
 export class CorpopayWeb {
@@ -25,5 +25,26 @@ export class CorpopayWeb {
       .withExec(["npm", "run", "lint"])
       .withExec(["npm", "run", "test"])
       .stdout();
+  }
+
+  /**
+   * Build and publish the web image to GHCR, baking NEXT_PUBLIC_API_URL at
+   * build time (defaults to the local demo API URL).
+   */
+  @func()
+  async publish(
+    src: Directory,
+    tag: string,
+    registryPassword: Secret,
+    nextPublicApiUrl: string = "http://localhost:4000",
+  ): Promise<string> {
+    return dag
+      .container()
+      .build(src, {
+        dockerfile: "Dockerfile",
+        buildArgs: [{ name: "NEXT_PUBLIC_API_URL", value: nextPublicApiUrl }],
+      })
+      .withRegistryAuth("ghcr.io", "corpopay", registryPassword)
+      .publish(`ghcr.io/corpopay/corpopay-web:${tag}`);
   }
 }
