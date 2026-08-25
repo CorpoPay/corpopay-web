@@ -1,8 +1,8 @@
-import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { AuthProvider } from "@/lib/auth";
 import { AnimatePresence, motion } from "framer-motion";
+import type { AppProps } from "next/app";
 import DatadogInit from "@/components/datadog-init";
+import { AuthProvider } from "@/lib/auth";
 import "@/styles/globals.css";
 
 const queryClient = new QueryClient({

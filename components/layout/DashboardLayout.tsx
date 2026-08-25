@@ -1,28 +1,28 @@
-import React, { ReactNode, useEffect } from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { AnimatePresence, motion } from "framer-motion";
 import {
+  BookOpen,
+  Building2,
+  CreditCard,
+  Key,
+  Layers,
   LayoutDashboard,
   Link2,
-  CreditCard,
-  Settings,
-  Key,
-  LogOut,
-  Building2,
-  Menu,
-  X,
-  RefreshCw,
-  Layers,
   ListOrdered,
-  BookOpen,
+  LogOut,
+  Menu,
+  RefreshCw,
+  Settings,
+  X,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { type ReactNode, useEffect } from "react";
+import { Spinner } from "@/components/shared/Spinner";
+import { AvatarInitials } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Toaster } from "@/components/ui/toaster";
 import { useAuth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { AvatarInitials } from "@/components/ui/avatar";
-import { Toaster } from "@/components/ui/toaster";
-import { Spinner } from "@/components/shared/Spinner";
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Overview", icon: LayoutDashboard },

@@ -1,11 +1,10 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { AnimatePresence, motion } from "framer-motion";
+import { Eye, EyeOff, Key, Plus, ShieldOff } from "lucide-react";
 import { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { motion, AnimatePresence } from "framer-motion";
 import DashboardLayout from "@/components/layout/DashboardLayout";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { CopyButton } from "@/components/shared/CopyButton";
+import { EmptyState } from "@/components/shared/EmptyState";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,14 +15,15 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { SkeletonRow } from "@/components/ui/skeleton";
-import { CopyButton } from "@/components/shared/CopyButton";
-import { EmptyState } from "@/components/shared/EmptyState";
-import { toast } from "@/lib/use-toast";
-import { client } from "@/lib/client";
 import type { components } from "@/lib/api-types";
+import { client } from "@/lib/client";
+import { toast } from "@/lib/use-toast";
 import { formatDate } from "@/lib/utils";
-import { Plus, ShieldOff, Eye, EyeOff, Key } from "lucide-react";
 
 type ApiKey = components["schemas"]["ApiKeyListItem"];
 type CreateKeyResponse = components["schemas"]["ApiKeyCreateResponse"];

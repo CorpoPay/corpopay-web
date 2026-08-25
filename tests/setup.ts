@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom/vitest';
+import "@testing-library/jest-dom/vitest";
 
 // Vitest 4's jsdom environment can leave `localStorage` as a non-functional
 // stub (backed by a `--localstorage-file` we don't configure). Provide a simple
@@ -19,7 +19,7 @@ const localStorageMock: Storage = {
   },
 };
 
-Object.defineProperty(globalThis, 'localStorage', {
+Object.defineProperty(globalThis, "localStorage", {
   value: localStorageMock,
   configurable: true,
   writable: true,

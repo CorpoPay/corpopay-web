@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { serverClient, getErrorMessage } from "@/lib/client";
+import { getErrorMessage, serverClient } from "@/lib/client";
 
 /**
  * Proxy for the public installment plans endpoint.

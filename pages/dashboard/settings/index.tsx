@@ -1,15 +1,26 @@
-import { useState } from "react";
-import { cn } from "@/lib/utils";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  AlertCircle,
+  ArrowRight,
+  BookOpen,
+  Check,
+  CheckCircle2,
+  ChevronDown,
+  Clipboard,
+  HelpCircle,
+  Info,
+  Loader2,
+  PlugZap,
+  Power,
+  PowerOff,
+  Webhook,
+  XCircle,
+} from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import DashboardLayout from "@/components/layout/DashboardLayout";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,27 +31,16 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import type { components } from "@/lib/api-types";
 import { client, getErrorMessage } from "@/lib/client";
 import { statusVariant } from "@/lib/status";
-import type { components } from "@/lib/api-types";
 import { toast } from "@/lib/use-toast";
-import {
-  CheckCircle2,
-  Loader2,
-  PlugZap,
-  AlertCircle,
-  Webhook,
-  PowerOff,
-  Power,
-  XCircle,
-  HelpCircle,
-  ChevronDown,
-  BookOpen,
-  Clipboard,
-  Check,
-  Info,
-  ArrowRight,
-} from "lucide-react";
+import { cn } from "@/lib/utils";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
 import fs from "node:fs";
 import { createRequire } from "node:module";
+import { describe, expect, it } from "vitest";
 
 /**
  * Drift detector: validates the web's expectations against the OpenAPI spec

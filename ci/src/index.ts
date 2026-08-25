@@ -1,4 +1,4 @@
-import { dag, Directory, Secret, object, func } from "@dagger.io/dagger";
+import { type Directory, dag, func, object, type Secret } from "@dagger.io/dagger";
 
 /**
  * CorpoPay Web — Dagger CI module.

@@ -1,19 +1,19 @@
-import { useRouter } from "next/router";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { Building2 } from "lucide-react";
 import { motion } from "framer-motion";
-import { useAuth, type AuthUser } from "@/lib/auth";
-import { client, getErrorMessage } from "@/lib/client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Building2 } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { FormField } from "@/components/shared/FormField";
 import { Spinner } from "@/components/shared/Spinner";
-import { toast } from "@/lib/use-toast";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Toaster } from "@/components/ui/toaster";
+import { type AuthUser, useAuth } from "@/lib/auth";
+import { client, getErrorMessage } from "@/lib/client";
+import { toast } from "@/lib/use-toast";
 
 const schema = z
   .object({

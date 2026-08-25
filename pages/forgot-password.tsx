@@ -1,18 +1,18 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowLeft, Building2, Mail } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useMutation } from "@tanstack/react-query";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { client } from "@/lib/client";
-import Link from "next/link";
-import { ArrowLeft, Mail, Building2 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import { FormField } from "@/components/shared/FormField";
 import { Spinner } from "@/components/shared/Spinner";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Toaster } from "@/components/ui/toaster";
+import { client } from "@/lib/client";
 
 const schema = z.object({ email: z.string().email("Enter a valid email") });
 type FormValues = z.infer<typeof schema>;

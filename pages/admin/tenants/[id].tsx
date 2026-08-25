@@ -1,10 +1,12 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import AdminLayout from "@/components/layout/AdminLayout";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/shared/StatusBadge";
-import { toast } from "@/lib/use-toast";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -13,12 +15,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { client } from "@/lib/client";
 import type { components } from "@/lib/api-types";
+import { client } from "@/lib/client";
+import { toast } from "@/lib/use-toast";
 import { formatDate } from "@/lib/utils";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 
 type TenantDetail = components["schemas"]["AdminTenantDetail"];
 

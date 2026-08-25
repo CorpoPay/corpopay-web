@@ -4,14 +4,12 @@
  * Lists the tenant's active BNPL installment plans and allows the merchant to
  * create, activate/deactivate, and delete plans.
  */
+
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Loader2, Pencil, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import DashboardLayout from "@/components/layout/DashboardLayout";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { StatusBadge } from "@/components/shared/StatusBadge";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -22,11 +20,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { StatusBadge } from "@/components/shared/StatusBadge";
-import { toast } from "@/lib/use-toast";
-import { client, getErrorMessage } from "@/lib/client";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import type { components } from "@/lib/api-types";
-import { Plus, Pencil, Trash2, Loader2 } from "lucide-react";
+import { client, getErrorMessage } from "@/lib/client";
+import { toast } from "@/lib/use-toast";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

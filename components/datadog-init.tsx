@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import { datadogRum } from "@datadog/browser-rum";
+import { useEffect } from "react";
 
 /**
  * Client-side Datadog RUM initialisation.

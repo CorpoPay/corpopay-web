@@ -1,7 +1,8 @@
 import { Search } from "lucide-react";
+import type React from "react";
+import { useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import React, { useRef } from "react";
 
 interface SearchInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
   containerClassName?: string;

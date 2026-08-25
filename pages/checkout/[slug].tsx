@@ -1,18 +1,18 @@
-import { GetServerSideProps } from "next";
-import { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
+import { CheckCircle, CreditCard, Layers, RefreshCw, Shield } from "lucide-react";
+import type { GetServerSideProps } from "next";
 import Head from "next/head";
-import { serverClient } from "@/lib/client";
-import type { components } from "@/lib/api-types";
 import { useRouter } from "next/router";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { useEffect, useRef, useState } from "react";
+import { Spinner } from "@/components/shared/Spinner";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { formatAmount } from "@/lib/utils";
+import type { components } from "@/lib/api-types";
+import { serverClient } from "@/lib/client";
 import { trackAction } from "@/lib/datadog";
-import { CreditCard, Shield, RefreshCw, CheckCircle, Layers } from "lucide-react";
-import { motion } from "framer-motion";
-import { Spinner } from "@/components/shared/Spinner";
+import { formatAmount } from "@/lib/utils";
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 

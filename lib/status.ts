@@ -15,7 +15,14 @@ export type { ProviderHealthStatus } from "@corpopay/contract";
  * component code into `lib/`.
  */
 export type BadgeVariant =
-  "default" | "secondary" | "destructive" | "outline" | "success" | "warning" | "info" | "purple";
+  | "default"
+  | "secondary"
+  | "destructive"
+  | "outline"
+  | "success"
+  | "warning"
+  | "info"
+  | "purple";
 
 /**
  * Canonical status → badge variant mapping. This is the only place a status is

@@ -17,7 +17,9 @@ interface ToastState {
 }
 
 type Action =
-  { type: "ADD"; toast: Toast } | { type: "REMOVE"; id: string } | { type: "DISMISS"; id: string };
+  | { type: "ADD"; toast: Toast }
+  | { type: "REMOVE"; id: string }
+  | { type: "DISMISS"; id: string };
 
 let dispatch: React.Dispatch<Action> = () => {};
 let toastId = 0;

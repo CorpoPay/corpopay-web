@@ -1,10 +1,10 @@
+import { motion } from "framer-motion";
+import { CheckCircle2 } from "lucide-react";
 import Head from "next/head";
 import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { CheckCircle2 } from "lucide-react";
 import { useRouter } from "next/router";
-import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function CheckoutSuccessPage() {
   const router = useRouter();

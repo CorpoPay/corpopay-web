@@ -10,26 +10,27 @@
  * The VPS PayWall is rendered inside a full-screen iframe overlay on the
  * same page — no new tab, no popup.
  */
-import { useState, useEffect, useRef } from "react";
+
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { client } from "@/lib/client";
+import {
+  AlertTriangle,
+  ArrowLeft,
+  CheckCircle,
+  Clock,
+  CreditCard,
+  Loader2,
+  PlayCircle,
+  RefreshCw,
+  Trash2,
+  X,
+  XCircle,
+  Zap,
+} from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  X,
-  PlayCircle,
-  Trash2,
-  CheckCircle,
-  XCircle,
-  Clock,
-  AlertTriangle,
-  Loader2,
-  Zap,
-  RefreshCw,
-  CreditCard,
-  ArrowLeft,
-} from "lucide-react";
+import { client } from "@/lib/client";
 
 // --- Types -------------------------------------------------------------------
 
@@ -167,7 +168,7 @@ function computeInstallmentPreview(principal: number, aprPct: number, n: number)
     monthly = Math.round((principal / n) * 100) / 100;
   } else {
     const r = aprPct / 100 / 12;
-    const factor = Math.pow(1 + r, n);
+    const factor = (1 + r) ** n;
     monthly = Math.ceil(((principal * (r * factor)) / (factor - 1)) * 100) / 100;
   }
   const total = Math.round(monthly * n * 100) / 100;
@@ -1223,8 +1224,7 @@ export default function SimulationModal({ tenantId, tenantName, onClose }: Simul
                           {prepareData.preview.totalInstallments} ×{" "}
                           {Number(prepareData.preview.installmentAmount).toFixed(2)}{" "}
                           {prepareData.preview.currency}
-                          {prepareData.preview.apr > 0 &&
-                            ` (${prepareData.preview.apr}% APR)`} ={" "}
+                          {prepareData.preview.apr > 0 && ` (${prepareData.preview.apr}% APR)`} ={" "}
                           {(
                             prepareData.preview.totalInstallments *
                             prepareData.preview.installmentAmount

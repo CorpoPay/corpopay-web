@@ -4,27 +4,28 @@
  * Lists all BNPL installment agreements for the tenant with per-charge
  * breakdown and the ability to cancel active agreements.
  */
-import { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import DashboardLayout from "@/components/layout/DashboardLayout";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { StatusBadge } from "@/components/shared/StatusBadge";
-import { Progress } from "@/components/ui/progress";
-import { EmptyState } from "@/components/shared/EmptyState";
-import { toast } from "@/lib/use-toast";
-import { client } from "@/lib/client";
-import type { components } from "@/lib/api-types";
-import { formatAmount } from "@/lib/utils";
+
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
+  AlertTriangle,
+  CheckCircle,
   ChevronDown,
   ChevronUp,
-  Loader2,
-  CheckCircle,
-  XCircle,
   Clock,
-  AlertTriangle,
+  Loader2,
+  XCircle,
 } from "lucide-react";
+import { useState } from "react";
+import DashboardLayout from "@/components/layout/DashboardLayout";
+import { EmptyState } from "@/components/shared/EmptyState";
+import { StatusBadge } from "@/components/shared/StatusBadge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import type { components } from "@/lib/api-types";
+import { client } from "@/lib/client";
+import { toast } from "@/lib/use-toast";
+import { formatAmount } from "@/lib/utils";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

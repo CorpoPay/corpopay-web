@@ -1,10 +1,10 @@
 "use client";
 
-import * as React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { X, CheckCircle2, AlertCircle, AlertTriangle, Info } from "lucide-react";
+import { AlertCircle, AlertTriangle, CheckCircle2, Info, X } from "lucide-react";
+import * as React from "react";
+import { dismissToast, type ToastVariant, useToastStore } from "@/lib/use-toast";
 import { cn } from "@/lib/utils";
-import { useToastStore, dismissToast, type ToastVariant } from "@/lib/use-toast";
 
 const variantStyles: Record<ToastVariant, string> = {
   default: "bg-card border-border text-foreground",

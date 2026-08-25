@@ -1,9 +1,9 @@
-import { GetServerSideProps } from "next";
-import { useEffect, useRef } from "react";
-import Head from "next/head";
-import { serverClient } from "@/lib/client";
 import { Shield } from "lucide-react";
+import type { GetServerSideProps } from "next";
+import Head from "next/head";
+import { useEffect, useRef } from "react";
 import { Spinner } from "@/components/shared/Spinner";
+import { serverClient } from "@/lib/client";
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 

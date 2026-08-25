@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { ChevronLeft, Pause, Play, RefreshCw, X } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { StatusBadge } from "@/components/shared/StatusBadge";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,12 +15,12 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { StatusBadge } from "@/components/shared/StatusBadge";
-import { toast } from "@/lib/use-toast";
-import { client, getErrorMessage } from "@/lib/client";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { components } from "@/lib/api-types";
+import { client, getErrorMessage } from "@/lib/client";
+import { toast } from "@/lib/use-toast";
 import { formatAmount } from "@/lib/utils";
-import { ChevronLeft, Pause, Play, X, RefreshCw } from "lucide-react";
 
 type BillingEvent = components["schemas"]["BillingEvent"];
 type SubscriptionDetail = components["schemas"]["SubscriptionDetail"];

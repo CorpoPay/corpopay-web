@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeAll, beforeEach, afterEach, afterAll } from "vitest";
+import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
-import { http, HttpResponse } from "msw";
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { client } from "@/lib/client";
 
 const server = setupServer(

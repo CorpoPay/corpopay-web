@@ -1,0 +1,18 @@
+rules:
+  - id: corpopay-insecure-random
+    message: >-
+      Math.random() is not cryptographically secure. Use the Web Crypto API
+      (crypto.getRandomValues) for tokens, IDs, and one-time codes.
+    severity: WARNING
+    languages:
+      - javascript
+      - typescript
+    pattern: Math.random()
+    paths:
+      include:
+        - pages/**
+        - components/**
+        - lib/**
+    metadata:
+      category: security
+      cwe: "CWE-338"
