@@ -57,6 +57,6 @@ npm run test
 
 - Open a PR against `main`.
 - Keep changes focused; add/update tests for new behavior.
-- CI must be green (typecheck + lint + test).
+- CI must be green (typecheck, lint, test, audit, coverage, and security scans).
 - A maintainer will review; discussion is welcome, but the domain rules above
   are not optional.
