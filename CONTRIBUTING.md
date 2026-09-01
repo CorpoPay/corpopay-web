@@ -28,7 +28,8 @@ The API's OpenAPI spec is the single source of truth. The web vendors generated
 types via:
 
 ```bash
-npm i @corpopay/contract   # contract types (published from CorpoPay/corpopay-api)
+# vendored in contract/ — regenerate from corpopay-api with `npm run contract:generate`
+cp ../corpopay-api/contract/{api-types.d.ts,openapi.json,enums.ts} contract/
 ```
 
 Never hand-edit the generated `contract/*` files, or hand-write domain types,
