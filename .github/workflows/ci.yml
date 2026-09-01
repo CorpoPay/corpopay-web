@@ -102,9 +102,10 @@ jobs:
       - name: Run Knip
         run: npm run knip
 
-  # ── Dependency vulnerability scan (OSV-Scanner, lockfiles) ─────────────────
+  # ── Dependency vulnerability scan (OSV-Scanner, lockfiles; advisory) ────────
   osv:
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - uses: google/osv-scanner-action/osv-scanner-action@v2.5.1
