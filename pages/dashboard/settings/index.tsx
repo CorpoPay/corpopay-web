@@ -46,7 +46,7 @@ import { cn } from "@/lib/utils";
 
 type ProviderConfig = components["schemas"]["ProviderConfigListItem"];
 type TenantProfile = components["schemas"]["TenantProfile"];
-type ProviderValue = "NAPS" | "VPS" | "STRIPE";
+type ProviderValue = "VPS" | "STRIPE";
 
 // ─── API helpers ─────────────────────────────────────────────────────────────
 
@@ -140,13 +140,6 @@ const webhookSchema = z.object({
 
 type WebhookValues = z.infer<typeof webhookSchema>;
 
-const napsSchema = z.object({
-  merchantId: z.string().min(1, "Required"),
-  terminalId: z.string().min(1, "Required"),
-  secretKey: z.string().min(1, "Required"),
-  baseUrl: z.string().url("Must be a valid URL"),
-});
-
 const vpsSchema = z.object({
   merchantCode: z.string().min(1, "Required"),
   apiKey: z.string().min(1, "Required"),
@@ -159,7 +152,6 @@ const stripeSchema = z.object({
   publishableKey: z.string().optional(),
 });
 
-type NapsValues = z.infer<typeof napsSchema>;
 type VpsValues = z.infer<typeof vpsSchema>;
 type StripeValues = z.infer<typeof stripeSchema>;
 
@@ -185,7 +177,7 @@ function ProviderCard({
 
   // ── Save credentials ───────────────────────────────────────────────────────
   const mutation = useMutation({
-    mutationFn: (data: NapsValues | VpsValues | StripeValues) => upsertConfig(provider, env, data),
+    mutationFn: (data: VpsValues | StripeValues) => upsertConfig(provider, env, data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["provider-configs"] });
       setOpen(false);
@@ -299,36 +291,6 @@ function ProviderCard({
             <p className="text-xs text-destructive">{errors.publishableKey.message}</p>
           )}
         </div>
-        <Button type="submit" size="sm" disabled={mutation.isPending}>
-          {mutation.isPending ? "Saving…" : "Save"}
-        </Button>
-        {mutation.isError && <p className="text-xs text-destructive">Failed to save.</p>}
-      </form>
-    );
-  };
-
-  const NapsForm = () => {
-    const {
-      register,
-      handleSubmit,
-      formState: { errors },
-    } = useForm<NapsValues>({ resolver: zodResolver(napsSchema) });
-    return (
-      <form onSubmit={handleSubmit((d) => mutation.mutate(d))} className="space-y-4 pt-2">
-        {(
-          [
-            ["merchantId", "Merchant ID"],
-            ["terminalId", "Terminal ID"],
-            ["secretKey", "Secret Key"],
-            ["baseUrl", "Base URL"],
-          ] as [keyof NapsValues, string][]
-        ).map(([field, label]) => (
-          <div key={field} className="space-y-1.5">
-            <Label>{label}</Label>
-            <Input type={field === "secretKey" ? "password" : "text"} {...register(field)} />
-            {errors[field] && <p className="text-xs text-destructive">{errors[field]?.message}</p>}
-          </div>
-        ))}
         <Button type="submit" size="sm" disabled={mutation.isPending}>
           {mutation.isPending ? "Saving…" : "Save"}
         </Button>
@@ -473,13 +435,7 @@ function ProviderCard({
                   </Button>
                 ))}
               </div>
-              {provider === "NAPS" ? (
-                <NapsForm />
-              ) : provider === "VPS" ? (
-                <VpsForm />
-              ) : (
-                <StripeForm />
-              )}
+              {provider === "VPS" ? <VpsForm /> : <StripeForm />}
             </div>
           )}
         </CardContent>
@@ -946,7 +902,6 @@ export default function SettingsPage() {
     queryFn: fetchConfigs,
   });
 
-  const napsConfigs = configs.filter((c) => c.provider === "NAPS");
   const vpsConfigs = configs.filter((c) => c.provider === "VPS");
   const stripeConfigs = configs.filter((c) => c.provider === "STRIPE");
 
@@ -959,13 +914,6 @@ export default function SettingsPage() {
             Configure payment providers and outbound notifications.
           </p>
         </div>
-
-        <ProviderCard
-          provider="NAPS"
-          title="NAPS"
-          description="Network for Automated Payment Systems — Morocco's national card network."
-          configs={napsConfigs}
-        />
 
         <ProviderCard
           provider="VPS"

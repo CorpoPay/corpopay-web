@@ -29,9 +29,9 @@ import { toast } from "@/lib/use-toast";
 import { formatDate } from "@/lib/utils";
 
 type ReconciliationReport = components["schemas"]["ReconciliationReport"];
-type Provider = "NAPS" | "VPS" | "STRIPE" | "PAYPAL" | "ADYEN";
+type Provider = "VPS" | "STRIPE" | "PAYPAL" | "ADYEN";
 
-const PROVIDERS: Provider[] = ["NAPS", "VPS", "STRIPE", "PAYPAL", "ADYEN"];
+const PROVIDERS: Provider[] = ["VPS", "STRIPE", "PAYPAL", "ADYEN"];
 
 async function fetchReports(): Promise<ReconciliationReport[]> {
   const { data, error } = await client.GET("/reconciliation-reports");
@@ -53,7 +53,7 @@ function parseLines(text: string): { reference: string; amountCents: number }[] 
 
 export default function ReconciliationPage() {
   const qc = useQueryClient();
-  const [provider, setProvider] = useState<Provider>("NAPS");
+  const [provider, setProvider] = useState<Provider>("VPS");
   const [linesText, setLinesText] = useState("");
 
   const { data: reports, isLoading } = useQuery({

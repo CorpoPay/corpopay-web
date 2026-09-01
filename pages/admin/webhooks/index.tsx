@@ -73,9 +73,7 @@ export default function AdminWebhooksPage() {
       <div className="space-y-5">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Webhook Logs</h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Incoming webhook events from NAPS and VPS.
-          </p>
+          <p className="text-sm text-muted-foreground mt-1">Incoming webhook events from VPS.</p>
         </div>
 
         {/* Filters */}
@@ -91,7 +89,7 @@ export default function AdminWebhooksPage() {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {["ALL", "NAPS", "VPS"].map((p) => (
+              {["ALL", "VPS"].map((p) => (
                 <SelectItem key={p} value={p}>
                   {p === "ALL" ? "All providers" : p}
                 </SelectItem>

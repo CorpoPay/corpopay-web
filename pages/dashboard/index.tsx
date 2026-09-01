@@ -246,7 +246,7 @@ export default function DashboardHome() {
               {
                 label: "Configure a payment provider",
                 href: "/dashboard/settings",
-                desc: "Connect NAPS or VPS to start accepting payments",
+                desc: "Connect VPS or Stripe to start accepting payments",
               },
               {
                 label: "Create your first payment link",

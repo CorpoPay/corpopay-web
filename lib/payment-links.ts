@@ -1,4 +1,4 @@
-type PaymentLinkProvider = "NAPS" | "VPS" | "STRIPE";
+type PaymentLinkProvider = "VPS" | "STRIPE";
 
 type BillingInterval = "DAILY" | "WEEKLY" | "MONTHLY" | "QUARTERLY" | "ANNUAL" | "CUSTOM";
 

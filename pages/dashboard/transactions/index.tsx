@@ -50,7 +50,7 @@ const STATUS_OPTIONS = [
   "CANCELED",
   "REFUNDED",
 ];
-const PROVIDER_OPTIONS = ["ALL", "NAPS", "VPS"];
+const PROVIDER_OPTIONS = ["ALL", "VPS"];
 
 async function fetchTransactions(
   page: number,

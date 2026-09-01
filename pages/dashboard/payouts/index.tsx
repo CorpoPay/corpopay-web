@@ -41,9 +41,9 @@ import { toast } from "@/lib/use-toast";
 import { formatAmount, formatDate } from "@/lib/utils";
 
 type Payout = components["schemas"]["Payout"];
-type Provider = "NAPS" | "VPS" | "STRIPE" | "PAYPAL" | "ADYEN";
+type Provider = "VPS" | "STRIPE" | "PAYPAL" | "ADYEN";
 
-const PROVIDERS: Provider[] = ["NAPS", "VPS", "STRIPE", "PAYPAL", "ADYEN"];
+const PROVIDERS: Provider[] = ["VPS", "STRIPE", "PAYPAL", "ADYEN"];
 const TERMINAL_STATUSES = ["PAID", "FAILED", "CANCELLED"];
 
 async function fetchPayouts(): Promise<Payout[]> {
@@ -73,7 +73,7 @@ async function cancelPayout(id: string): Promise<void> {
 
 export default function PayoutsPage() {
   const qc = useQueryClient();
-  const [provider, setProvider] = useState<Provider>("NAPS");
+  const [provider, setProvider] = useState<Provider>("VPS");
   const [idempotencyKey, setIdempotencyKey] = useState("");
   const [cancelTarget, setCancelTarget] = useState<Payout | null>(null);
 

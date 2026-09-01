@@ -29,7 +29,6 @@ const BILLING_INTERVALS = [
 ] as const;
 
 const PROVIDERS = [
-  { value: "NAPS", label: "NAPS" },
   { value: "VPS", label: "VPS / Payzone" },
   { value: "STRIPE", label: "Stripe" },
 ] as const;
@@ -40,7 +39,7 @@ const schema = z.object({
   title: z.string().min(2, "Title is required"),
   amount: z.coerce.number().min(1, "Amount must be at least 1"),
   currency: z.string().default("MAD"),
-  provider: z.enum(["NAPS", "VPS", "STRIPE"] as const).default("VPS"),
+  provider: z.enum(["VPS", "STRIPE"] as const).default("VPS"),
   reference: z.string().optional(),
   customerEmail: z.string().email("Invalid email").optional().or(z.literal("")),
   customerName: z.string().optional(),
