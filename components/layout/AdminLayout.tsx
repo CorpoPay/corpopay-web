@@ -1,9 +1,14 @@
 import {
   Activity,
+  Banknote,
   Building2,
+  ClipboardCheck,
   CreditCard,
+  FileText,
+  ListChecks,
   LogOut,
   Menu,
+  Scale,
   ShieldAlert,
   Webhook,
   X,
@@ -22,6 +27,11 @@ const NAV_ITEMS = [
   { href: "/admin/payments", label: "Payment Search", icon: CreditCard },
   { href: "/admin/webhooks", label: "Webhook Logs", icon: Webhook },
   { href: "/admin/providers", label: "Provider Health", icon: Activity },
+  { href: "/admin/payouts", label: "Payouts", icon: Banknote },
+  { href: "/admin/onboarding", label: "Onboarding", icon: ClipboardCheck },
+  { href: "/admin/disputes", label: "Disputes", icon: Scale },
+  { href: "/admin/reconciliation", label: "Reconciliation", icon: ListChecks },
+  { href: "/admin/statements", label: "Statements", icon: FileText },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

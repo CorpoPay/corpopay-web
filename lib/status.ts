@@ -2,12 +2,12 @@
  * Statuses — single source of truth for the UI mapping (badge variant + label).
  *
  * The status *types* are generated from the API's Prisma schema (the real source
- * of truth) and consumed directly from the published `@corpopay/contract` package.
- * `ProviderHealthStatus` is re-exported here for the providers admin page. Do NOT
- * hand-write a status union — if an enum value changes in the API, bump
- * `@corpopay/contract`.
+ * of truth) and consumed from the vendored `contract/enums.ts` (kept in sync by
+ * corpopay-api's `contract:generate`). `ProviderHealthStatus` is re-exported here
+ * for the providers admin page. Do NOT hand-write a status union — if an enum
+ * value changes in the API, refresh `contract/` and the generated types follow.
  */
-export type { ProviderHealthStatus } from "@corpopay/contract";
+export type { ProviderHealthStatus } from "../contract/enums";
 
 /**
  * The `Badge` component variants (see `components/ui/badge.tsx`). Keeping this
@@ -30,8 +30,8 @@ export type BadgeVariant =
  * `statusVariant()` instead of a local `Record<string, …>`.
  *
  * Note: `CANCELED` (payment intent / payment link) and `CANCELLED`
- * (subscription / installment agreement) are both real API values and are kept
- * as distinct keys on purpose.
+ * (subscription / installment agreement / payout) are both real API values and
+ * are kept as distinct keys on purpose.
  */
 const STATUS_VARIANTS: Record<string, BadgeVariant> = {
   // Positive / healthy / terminal success
@@ -43,6 +43,15 @@ const STATUS_VARIANTS: Record<string, BadgeVariant> = {
   PAID: "success",
   NORMAL: "success",
   HEALTHY: "success",
+  SETTLED: "success",
+  MATCHED: "success",
+  RESOLVED: "success",
+  APPROVED: "success",
+  COLLECTED: "success",
+  WON: "success",
+  FINALIZED: "success",
+  EXACT: "success",
+  LOW: "success",
 
   // Errors / failures
   FAILED: "destructive",
@@ -54,16 +63,26 @@ const STATUS_VARIANTS: Record<string, BadgeVariant> = {
   UNHEALTHY: "destructive",
   REVOKED: "destructive",
   SUSPENDED: "destructive",
+  REJECTED: "destructive",
+  LOST: "destructive",
+  HIGH: "destructive",
 
   // In-flight / needs attention
   PROCESSING: "info",
   TRIAL: "info",
+  SCHEDULED: "info",
+  SUBMITTED: "info",
   REQUIRES_ACTION: "warning",
   PENDING: "warning",
   PENDING_PAYMENT: "warning",
   PENDING_CHECKOUT: "warning",
   PAST_DUE: "warning",
   DEGRADED: "warning",
+  UNMATCHED: "warning",
+  OPEN: "warning",
+  NEEDS_INFO: "warning",
+  MEDIUM: "warning",
+  AMOUNT_DIFF: "warning",
 
   // Neutral / inactive / ended
   CREATED: "outline",
@@ -76,16 +95,21 @@ const STATUS_VARIANTS: Record<string, BadgeVariant> = {
   EXPIRED: "secondary",
   ARCHIVED: "secondary",
   PAUSED: "secondary",
+  VOID: "secondary",
+  WAIVED: "secondary",
 
-  // Money returned to the customer
+  // Money returned to the customer (or a split reversal)
   REFUNDED: "purple",
   PARTIALLY_REFUNDED: "purple",
+  REVERSED: "purple",
 };
 
 /** Human-readable short labels for statuses that need them. */
 const STATUS_LABELS: Record<string, string> = {
   REQUIRES_ACTION: "Action Req.",
   PARTIALLY_REFUNDED: "Part. Refunded",
+  NEEDS_INFO: "Needs Info",
+  AMOUNT_DIFF: "Amount Diff",
 };
 
 /** Map a status to its canonical badge variant (defaults to `outline`). */
