@@ -1,8 +1,36 @@
 # CorpoPay Web
 
-Browser frontend for CorpoPay — **Next.js 16 (pages router) + React 19**. Four
+[![CI](https://github.com/CorpoPay/corpopay-web/actions/workflows/ci.yml/badge.svg)](https://github.com/CorpoPay/corpopay-web/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/CorpoPay/corpopay-web/actions/workflows/codeql.yml/badge.svg)](https://github.com/CorpoPay/corpopay-web/actions/workflows/codeql.yml)
+[![release](https://github.com/CorpoPay/corpopay-web/actions/workflows/release-please.yml/badge.svg)](https://github.com/CorpoPay/corpopay-web/actions/workflows/release-please.yml)
+[![License](https://img.shields.io/github/license/CorpoPay/corpopay-web)](LICENSE)
+[![Next.js 16](https://img.shields.io/badge/Next.js-16-000000)](https://nextjs.org)
+[![React 19](https://img.shields.io/badge/React-19-61DAFB)](https://react.dev)
+
+**Browser frontend for CorpoPay** — **Next.js 16 (pages router) + React 19**. Four
 surfaces: merchant dashboard, admin backoffice, hosted checkout, and the paywall
 relay page. Talks to `corpopay-api` through a generated openapi-fetch client.
+
+## Architecture
+
+```mermaid
+flowchart TB
+    subgraph Surfaces["CorpoPay Web (Next.js)"]
+        Dashboard["Merchant dashboard"]
+        Admin["Admin backoffice"]
+        Checkout["Hosted checkout"]
+        Paywall["Paywall relay"]
+    end
+
+    Dashboard --> API["corpopay-api"]
+    Admin --> API
+    Checkout --> API
+    Paywall --> API
+
+    API --> Stripe["Stripe"]
+    API --> VPS["VPS / Payzone"]
+    API --> NAPS["NAPS"]
+```
 
 ## Surfaces
 
