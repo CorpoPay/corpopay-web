@@ -52,6 +52,7 @@ const STATUS_VARIANTS: Record<string, BadgeVariant> = {
   FINALIZED: "success",
   EXACT: "success",
   LOW: "success",
+  ALLOW: "success",
 
   // Errors / failures
   FAILED: "destructive",
@@ -66,6 +67,7 @@ const STATUS_VARIANTS: Record<string, BadgeVariant> = {
   REJECTED: "destructive",
   LOST: "destructive",
   HIGH: "destructive",
+  BLOCK: "destructive",
 
   // In-flight / needs attention
   PROCESSING: "info",
@@ -84,6 +86,7 @@ const STATUS_VARIANTS: Record<string, BadgeVariant> = {
   NEEDS_INFO: "warning",
   MEDIUM: "warning",
   AMOUNT_DIFF: "warning",
+  REVIEW: "warning",
 
   // Neutral / inactive / ended
   CREATED: "outline",
@@ -109,6 +112,8 @@ const STATUS_VARIANTS: Record<string, BadgeVariant> = {
 const STATUS_LABELS: Record<string, string> = {
   REQUIRES_ACTION: "Action Req.",
   AUTHORIZED: "Authorized",
+  REVIEW: "Review",
+  BLOCK: "Blocked",
   PARTIALLY_REFUNDED: "Part. Refunded",
   NEEDS_INFO: "Needs Info",
   AMOUNT_DIFF: "Amount Diff",

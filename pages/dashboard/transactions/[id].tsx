@@ -141,6 +141,14 @@ export default function TransactionDetailPage() {
                 <dt className="text-muted-foreground">Provider</dt>
                 <dd className="font-medium">{tx.provider}</dd>
               </div>
+              {tx.riskVerdict === "REVIEW" || tx.riskVerdict === "BLOCK" ? (
+                <div>
+                  <dt className="text-muted-foreground">Risk</dt>
+                  <dd>
+                    <StatusBadge status={tx.riskVerdict} />
+                  </dd>
+                </div>
+              ) : null}
               {providerTxId && (
                 <div>
                   <dt className="text-muted-foreground">Provider TX ID</dt>

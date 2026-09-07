@@ -671,11 +671,18 @@ export default function PlaygroundPage() {
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-base">Pipeline</CardTitle>
-                  {status && (
-                    <Badge variant={statusVariant(status)} className="text-xs">
-                      {statusLabel(status)}
-                    </Badge>
-                  )}
+                  <div className="flex items-center gap-2">
+                    {detail?.riskVerdict === "REVIEW" || detail?.riskVerdict === "BLOCK" ? (
+                      <Badge variant={statusVariant(detail.riskVerdict)} className="text-xs">
+                        {statusLabel(detail.riskVerdict)}
+                      </Badge>
+                    ) : null}
+                    {status && (
+                      <Badge variant={statusVariant(status)} className="text-xs">
+                        {statusLabel(status)}
+                      </Badge>
+                    )}
+                  </div>
                 </div>
               </CardHeader>
               <CardContent className="space-y-5">

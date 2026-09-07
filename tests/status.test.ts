@@ -20,6 +20,12 @@ describe("statusVariant", () => {
   it("falls back to outline for unknown statuses", () => {
     expect(statusVariant("TOTALLY_UNKNOWN")).toBe("outline");
   });
+
+  it("maps risk verdicts ALLOW/BLOCK/REVIEW", () => {
+    expect(statusVariant("ALLOW")).toBe("success");
+    expect(statusVariant("BLOCK")).toBe("destructive");
+    expect(statusVariant("REVIEW")).toBe("warning");
+  });
 });
 
 describe("statusLabel", () => {
@@ -35,5 +41,11 @@ describe("statusLabel", () => {
 
   it("returns the status as-is otherwise", () => {
     expect(statusLabel("SUCCEEDED")).toBe("SUCCEEDED");
+  });
+
+  it("labels risk verdicts REVIEW/BLOCK (ALLOW uses default)", () => {
+    expect(statusLabel("REVIEW")).toBe("Review");
+    expect(statusLabel("BLOCK")).toBe("Blocked");
+    expect(statusLabel("ALLOW")).toBe("ALLOW");
   });
 });

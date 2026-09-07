@@ -203,6 +203,7 @@ export default function TransactionsPage() {
                 <TableHead>Link / Reference</TableHead>
                 <TableHead>Provider</TableHead>
                 <TableHead>Status</TableHead>
+                <TableHead>Risk</TableHead>
                 <TableHead className="text-right">Amount</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead />
@@ -212,14 +213,14 @@ export default function TransactionsPage() {
               {isLoading ? (
                 [...Array(5)].map((_, i) => (
                   <TableRow key={i}>
-                    <TableCell colSpan={7} className="py-0 px-6">
+                    <TableCell colSpan={8} className="py-0 px-6">
                       <SkeletonRow />
                     </TableCell>
                   </TableRow>
                 ))
               ) : !data?.data?.length ? (
                 <TableRow>
-                  <TableCell colSpan={7} className="text-center text-muted-foreground py-10">
+                  <TableCell colSpan={8} className="text-center text-muted-foreground py-10">
                     No transactions found.
                   </TableCell>
                 </TableRow>
@@ -233,6 +234,13 @@ export default function TransactionsPage() {
                     <TableCell className="text-sm">{tx.provider}</TableCell>
                     <TableCell>
                       <StatusBadge status={tx.status} />
+                    </TableCell>
+                    <TableCell>
+                      {tx.riskVerdict === "REVIEW" || tx.riskVerdict === "BLOCK" ? (
+                        <StatusBadge status={tx.riskVerdict} />
+                      ) : (
+                        <span className="text-muted-foreground">—</span>
+                      )}
                     </TableCell>
                     <TableCell className="text-right font-semibold tabular-nums text-sm">
                       {tx.amount != null ? formatAmount(tx.amount, tx.currency ?? "MAD") : "—"}

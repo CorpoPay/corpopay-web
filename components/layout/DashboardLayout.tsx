@@ -22,6 +22,7 @@ import {
   RefreshCw,
   Scale,
   Settings,
+  ShieldAlert,
   Wallet,
   X,
 } from "lucide-react";
@@ -36,7 +37,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { useAuth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 
-type NavItem = { href: string; label: string; icon: LucideIcon };
+type NavItem = { href: string; label: string; icon: LucideIcon; adminOnly?: boolean };
 type NavGroup = { label: string; children: NavItem[] };
 
 const NAV_GROUPS: NavGroup[] = [
@@ -71,6 +72,12 @@ const NAV_GROUPS: NavGroup[] = [
       { href: "/dashboard/settlement-policies", label: "Settlement Policies", icon: Landmark },
       { href: "/dashboard/reconciliation", label: "Reconciliation", icon: ListChecks },
       { href: "/dashboard/statements", label: "Statements", icon: FileText },
+      {
+        href: "/dashboard/risk-decisions",
+        label: "Risk Review",
+        icon: ShieldAlert,
+        adminOnly: true,
+      },
     ],
   },
   {
@@ -121,7 +128,7 @@ interface DashboardLayoutProps {
 }
 
 export default function DashboardLayout({ children, title }: DashboardLayoutProps) {
-  const { user, tenant, logout, isLoading } = useAuth();
+  const { user, tenant, logout, isLoading, isAdmin } = useAuth();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
 
@@ -229,10 +236,9 @@ export default function DashboardLayout({ children, title }: DashboardLayoutProp
 
           <div className="mt-2 space-y-1">
             {NAV_GROUPS.map((group) => {
+              const children = group.children.filter((c) => !c.adminOnly || isAdmin);
               const isOpen = openGroup === group.label;
-              const hasActiveChild = group.children.some((c) =>
-                isActivePath(router.pathname, c.href),
-              );
+              const hasActiveChild = children.some((c) => isActivePath(router.pathname, c.href));
 
               return (
                 <div key={group.label}>
@@ -266,7 +272,7 @@ export default function DashboardLayout({ children, title }: DashboardLayoutProp
                         className="overflow-hidden"
                       >
                         <div className="mt-0.5 space-y-0.5">
-                          {group.children.map((item) => (
+                          {children.map((item) => (
                             <NavLink key={item.href} {...item} pathname={router.pathname} />
                           ))}
                         </div>
