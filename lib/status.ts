@@ -101,6 +101,7 @@ const STATUS_VARIANTS: Record<string, BadgeVariant> = {
   PAUSED: "secondary",
   VOID: "secondary",
   WAIVED: "secondary",
+  CLOSED: "secondary",
 
   // Money returned to the customer (or a split reversal)
   REFUNDED: "purple",

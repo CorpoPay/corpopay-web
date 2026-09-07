@@ -4,6 +4,7 @@ import {
   Building2,
   ChevronDown,
   ClipboardCheck,
+  Coins,
   CreditCard,
   FileText,
   FlaskConical,
@@ -58,6 +59,7 @@ const NAV_GROUPS: NavGroup[] = [
   {
     label: "Money",
     children: [
+      { href: "/dashboard/wallets", label: "Wallets", icon: Coins },
       { href: "/dashboard/transactions", label: "Transactions", icon: CreditCard },
       { href: "/dashboard/ledger", label: "Ledger", icon: Wallet },
       { href: "/dashboard/payouts", label: "Payouts", icon: Banknote },
