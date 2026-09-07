@@ -1,5 +1,9 @@
 # CorpoPay Web
 
+<div align="center">
+  <img src="./public/assets/logo/logo-with-text.png" alt="CorpoPay" width="300" />
+</div>
+
 [![CI](https://github.com/CorpoPay/corpopay-web/actions/workflows/ci.yml/badge.svg)](https://github.com/CorpoPay/corpopay-web/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/CorpoPay/corpopay-web/actions/workflows/codeql.yml/badge.svg)](https://github.com/CorpoPay/corpopay-web/actions/workflows/codeql.yml)
 [![release](https://github.com/CorpoPay/corpopay-web/actions/workflows/release-please.yml/badge.svg)](https://github.com/CorpoPay/corpopay-web/actions/workflows/release-please.yml)

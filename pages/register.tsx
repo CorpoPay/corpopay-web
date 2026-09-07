@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Building2 } from "lucide-react";
 import { motion } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
@@ -70,9 +70,14 @@ export default function RegisterPage() {
           <Card className="shadow-xl border-border/50">
             <CardHeader className="space-y-1 text-center pt-8 pb-4">
               <div className="flex justify-center mb-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary shadow-lg shadow-primary/20">
-                  <Building2 className="h-6 w-6 text-primary-foreground" />
-                </div>
+                <Image
+                  src="/assets/logo/logo-with-text.png"
+                  alt="CorpoPay"
+                  width={893}
+                  height={270}
+                  className="h-10 w-auto"
+                  priority
+                />
               </div>
               <CardTitle className="text-2xl font-bold">Create your workspace</CardTitle>
               <CardDescription>Start accepting card payments today</CardDescription>

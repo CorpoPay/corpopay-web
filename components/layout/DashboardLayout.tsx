@@ -1,7 +1,6 @@
 import {
   Banknote,
   BookOpen,
-  Building2,
   ChevronDown,
   ClipboardCheck,
   Coins,
@@ -28,6 +27,7 @@ import {
   X,
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { type ReactNode, useEffect } from "react";
@@ -198,10 +198,14 @@ export default function DashboardLayout({ children, title }: DashboardLayoutProp
       >
         {/* Logo */}
         <div className="flex h-14 items-center gap-2.5 border-b px-4">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary shrink-0">
-            <Building2 className="h-[18px] w-[18px] text-primary-foreground" />
-          </div>
-          <span className="font-bold text-base tracking-tight">CorpoPay</span>
+          <Image
+            src="/assets/logo/logo-with-text.png"
+            alt="CorpoPay"
+            width={893}
+            height={270}
+            className="h-8 w-auto shrink-0"
+            priority
+          />
           <button
             className="ml-auto rounded-md p-1 hover:bg-muted transition-colors lg:hidden"
             onClick={() => setSidebarOpen(false)}

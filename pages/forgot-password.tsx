@@ -1,7 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import { ArrowLeft, Building2, Mail } from "lucide-react";
+import { ArrowLeft, Mail } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -48,10 +49,14 @@ export default function ForgotPasswordPage() {
         >
           {/* Logo */}
           <div className="flex flex-col items-center mb-6">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary shadow-lg shadow-primary/20 mb-3">
-              <Building2 className="h-6 w-6 text-primary-foreground" />
-            </div>
-            <h1 className="text-xl font-bold tracking-tight">CorpoPay</h1>
+            <Image
+              src="/assets/logo/logo-with-text.png"
+              alt="CorpoPay"
+              width={893}
+              height={270}
+              className="h-12 w-auto"
+              priority
+            />
           </div>
 
           <Card className="shadow-xl border-border/50">
