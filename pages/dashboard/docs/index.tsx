@@ -200,6 +200,11 @@ function PaymentStatusBadge({ status }: { status: string }) {
         "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300 border-amber-200 dark:border-amber-700",
       icon: <AlertTriangle className="h-3 w-3" />,
     },
+    AUTHORIZED: {
+      color:
+        "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300 border-violet-200 dark:border-violet-700",
+      icon: <Check className="h-3 w-3" />,
+    },
     PROCESSING: {
       color:
         "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 border-blue-200 dark:border-blue-700",
@@ -296,7 +301,7 @@ function getFlowStep(intentId: string, status: string | null): number {
   if (!intentId) return 1;
   if (!status || status === "CREATED") return 2;
   if (status === "PROCESSING" || status === "REQUIRES_ACTION") return 3;
-  if (status === "SUCCEEDED") return 4;
+  if (status === "AUTHORIZED" || status === "SUCCEEDED") return 4;
   return 5; // terminal: FAILED / CANCELED / REFUNDED
 }
 
@@ -1221,6 +1226,7 @@ function StatusMonitorCard({
           {[
             { s: "CREATED", arrow: true },
             { s: "REQUIRES_ACTION", arrow: true },
+            { s: "AUTHORIZED", arrow: true },
             { s: "PROCESSING", arrow: true },
             { s: "SUCCEEDED", arrow: false },
           ].map(({ s, arrow }) => (
@@ -1430,8 +1436,8 @@ function CaptureCard({
   const [response, setResponse] = useState<ResponseState | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const canCapture = currentStatus === "REQUIRES_ACTION";
-  const preview = `POST ${BASE}/payment-intents/${intentId || ":intentId"}/capture\nAuthorization: Bearer ${apiKey}\n\n# No request body needed.\n# Intent must be in REQUIRES_ACTION status (pre-auth hold placed).`;
+  const canCapture = currentStatus === "AUTHORIZED";
+  const preview = `POST ${BASE}/payment-intents/${intentId || ":intentId"}/capture\nAuthorization: Bearer ${apiKey}\n\n# No request body needed.\n# Intent must be in AUTHORIZED status (pre-auth hold placed).`;
 
   async function send() {
     if (!intentId) return;
@@ -1469,7 +1475,7 @@ function CaptureCard({
       disabledReason={
         !intentId
           ? "Create a payment intent first."
-          : "Status must be REQUIRES_ACTION. Create an intent with isPreauth=true, complete the paywall, then return here."
+          : "Status must be AUTHORIZED. Create an intent with isPreauth=true, complete the paywall, then return here."
       }
       loading={loading}
       onSend={send}
@@ -1495,8 +1501,8 @@ function VoidCard({
   const [response, setResponse] = useState<ResponseState | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const canVoid = currentStatus === "REQUIRES_ACTION";
-  const preview = `POST ${BASE}/payment-intents/${intentId || ":intentId"}/cancel\nAuthorization: Bearer ${apiKey}\n\n# No request body needed.\n# Intent must be in REQUIRES_ACTION status. Releases the card hold without charging.`;
+  const canVoid = currentStatus === "AUTHORIZED";
+  const preview = `POST ${BASE}/payment-intents/${intentId || ":intentId"}/cancel\nAuthorization: Bearer ${apiKey}\n\n# No request body needed.\n# Intent must be in AUTHORIZED status. Releases the card hold without charging.`;
 
   async function send() {
     if (!intentId) return;
@@ -1534,7 +1540,7 @@ function VoidCard({
       disabledReason={
         !intentId
           ? "Create a payment intent first."
-          : "Status must be REQUIRES_ACTION. Create an intent with isPreauth=true, complete the paywall, then return here."
+          : "Status must be AUTHORIZED. Create an intent with isPreauth=true, complete the paywall, then return here."
       }
       loading={loading}
       onSend={send}

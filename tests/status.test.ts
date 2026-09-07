@@ -28,6 +28,11 @@ describe("statusLabel", () => {
     expect(statusLabel("PARTIALLY_REFUNDED")).toBe("Part. Refunded");
   });
 
+  it("maps AUTHORIZED to a warning variant and label", () => {
+    expect(statusVariant("AUTHORIZED")).toBe("warning");
+    expect(statusLabel("AUTHORIZED")).toBe("Authorized");
+  });
+
   it("returns the status as-is otherwise", () => {
     expect(statusLabel("SUCCEEDED")).toBe("SUCCEEDED");
   });

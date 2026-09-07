@@ -72,6 +72,7 @@ const STATUS_VARIANTS: Record<string, BadgeVariant> = {
   TRIAL: "info",
   SCHEDULED: "info",
   SUBMITTED: "info",
+  AUTHORIZED: "warning",
   REQUIRES_ACTION: "warning",
   PENDING: "warning",
   PENDING_PAYMENT: "warning",
@@ -107,6 +108,7 @@ const STATUS_VARIANTS: Record<string, BadgeVariant> = {
 /** Human-readable short labels for statuses that need them. */
 const STATUS_LABELS: Record<string, string> = {
   REQUIRES_ACTION: "Action Req.",
+  AUTHORIZED: "Authorized",
   PARTIALLY_REFUNDED: "Part. Refunded",
   NEEDS_INFO: "Needs Info",
   AMOUNT_DIFF: "Amount Diff",
