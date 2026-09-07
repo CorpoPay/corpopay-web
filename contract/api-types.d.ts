@@ -1356,6 +1356,41 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/settlement/summary": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get the tenant net-owed settlement summary */
+    get: operations["getSettlementSummary"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/finance-config": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get the tenant finance capabilities */
+    get: operations["getFinanceConfig"];
+    /** Update the tenant finance capabilities */
+    put: operations["updateFinanceConfig"];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   "/payouts": {
     parameters: {
       query?: never;
@@ -2038,6 +2073,23 @@ export interface paths {
     put?: never;
     /** Finalize a settlement statement across any tenant */
     post: operations["adminFinalizeSettlementStatement"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/admin/settlement-statements/{id}/void": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Void a settlement statement across any tenant */
+    post: operations["adminVoidSettlementStatement"];
     delete?: never;
     options?: never;
     head?: never;
@@ -2818,10 +2870,26 @@ export interface components {
       reversalFunding: string;
       allowNegative: boolean;
       splittingEnabled: boolean;
+      payoutRail: string;
       feeScheduleId: string | null;
       isActive: boolean;
       createdAt: string;
       updatedAt: string;
+    };
+    SettlementSummary: {
+      currency: string;
+      availableCents: number;
+      scheduledCents: number;
+      eligibleCents: number;
+      feesCents: number;
+      reserveCents: number;
+      paidOutCents: number;
+      payoutRail: string | null;
+    };
+    FinanceConfigResponse: {
+      capabilities: string[];
+      preset: string | null;
+      walletCommissionBasis: string;
     };
     PayoutItem: {
       id: string;
@@ -5997,6 +6065,8 @@ export interface operations {
             | null;
           allowNegative?: boolean | null;
           splittingEnabled?: boolean | null;
+          /** @enum {string|null} */
+          payoutRail?: "STRIPE_CONNECT" | "MANUAL" | null;
           feeScheduleId?: string | null;
         };
       };
@@ -6037,6 +6107,82 @@ export interface operations {
           [name: string]: unknown;
         };
         content?: never;
+      };
+    };
+  };
+  getSettlementSummary: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["SettlementSummary"];
+        };
+      };
+    };
+  };
+  getFinanceConfig: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FinanceConfigResponse"];
+        };
+      };
+    };
+  };
+  updateFinanceConfig: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        "application/json": {
+          capabilities: (
+            | "INSTANT_CAPTURE"
+            | "PREAUTH_CAPTURE"
+            | "WALLET"
+            | "SUBSCRIPTIONS"
+            | "INSTALLMENTS"
+            | "MARKETPLACE_SPLITS"
+          )[];
+          preset?: string | null;
+          /** @enum {string|null} */
+          walletCommissionBasis?: "usage" | "load" | null;
+        };
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FinanceConfigResponse"];
+        };
       };
     };
   };
@@ -7373,6 +7519,7 @@ export interface operations {
           "application/json": {
             id: string;
             verdict: string | null;
+            status: string;
             updatedAt: string;
           };
         };
@@ -7439,6 +7586,32 @@ export interface operations {
     };
   };
   adminFinalizeSettlementStatement: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": {
+            id: string;
+            status: string;
+            updatedAt: string;
+          };
+        };
+      };
+    };
+  };
+  adminVoidSettlementStatement: {
     parameters: {
       query?: never;
       header?: never;

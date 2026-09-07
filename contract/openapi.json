@@ -2640,6 +2640,9 @@
           "splittingEnabled": {
             "type": "boolean"
           },
+          "payoutRail": {
+            "type": "string"
+          },
           "feeScheduleId": {
             "type": "string",
             "nullable": true
@@ -2671,11 +2674,71 @@
           "reversalFunding",
           "allowNegative",
           "splittingEnabled",
+          "payoutRail",
           "feeScheduleId",
           "isActive",
           "createdAt",
           "updatedAt"
         ]
+      },
+      "SettlementSummary": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": "string"
+          },
+          "availableCents": {
+            "type": "integer"
+          },
+          "scheduledCents": {
+            "type": "integer"
+          },
+          "eligibleCents": {
+            "type": "integer"
+          },
+          "feesCents": {
+            "type": "integer"
+          },
+          "reserveCents": {
+            "type": "integer"
+          },
+          "paidOutCents": {
+            "type": "integer"
+          },
+          "payoutRail": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "currency",
+          "availableCents",
+          "scheduledCents",
+          "eligibleCents",
+          "feesCents",
+          "reserveCents",
+          "paidOutCents",
+          "payoutRail"
+        ]
+      },
+      "FinanceConfigResponse": {
+        "type": "object",
+        "properties": {
+          "capabilities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "preset": {
+            "type": "string",
+            "nullable": true
+          },
+          "walletCommissionBasis": {
+            "type": "string"
+          }
+        },
+        "required": ["capabilities", "preset", "walletCommissionBasis"]
       },
       "PayoutItem": {
         "type": "object",
@@ -8310,6 +8373,11 @@
                     "type": "boolean",
                     "nullable": true
                   },
+                  "payoutRail": {
+                    "type": "string",
+                    "nullable": true,
+                    "enum": ["STRIPE_CONNECT", "MANUAL"]
+                  },
                   "feeScheduleId": {
                     "type": "string",
                     "nullable": true
@@ -8356,6 +8424,113 @@
           },
           "404": {
             "description": "No active settlement policy"
+          }
+        }
+      }
+    },
+    "/settlement/summary": {
+      "get": {
+        "operationId": "getSettlementSummary",
+        "summary": "Get the tenant net-owed settlement summary",
+        "tags": ["Settlement"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SettlementSummary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/finance-config": {
+      "get": {
+        "operationId": "getFinanceConfig",
+        "summary": "Get the tenant finance capabilities",
+        "tags": ["Finance Config"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FinanceConfigResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateFinanceConfig",
+        "summary": "Update the tenant finance capabilities",
+        "tags": ["Finance Config"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "capabilities": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "INSTANT_CAPTURE",
+                        "PREAUTH_CAPTURE",
+                        "WALLET",
+                        "SUBSCRIPTIONS",
+                        "INSTALLMENTS",
+                        "MARKETPLACE_SPLITS"
+                      ]
+                    }
+                  },
+                  "preset": {
+                    "type": "string",
+                    "nullable": true,
+                    "minLength": 1,
+                    "maxLength": 50
+                  },
+                  "walletCommissionBasis": {
+                    "type": "string",
+                    "nullable": true,
+                    "enum": ["usage", "load"]
+                  }
+                },
+                "required": ["capabilities"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FinanceConfigResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -10683,11 +10858,14 @@
                       "type": "string",
                       "nullable": true
                     },
+                    "status": {
+                      "type": "string"
+                    },
                     "updatedAt": {
                       "type": "string"
                     }
                   },
-                  "required": ["id", "verdict", "updatedAt"]
+                  "required": ["id", "verdict", "status", "updatedAt"]
                 }
               }
             }
@@ -10807,6 +10985,52 @@
       "post": {
         "operationId": "adminFinalizeSettlementStatement",
         "summary": "Finalize a settlement statement across any tenant",
+        "tags": ["Admin"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["id", "status", "updatedAt"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/settlement-statements/{id}/void": {
+      "post": {
+        "operationId": "adminVoidSettlementStatement",
+        "summary": "Void a settlement statement across any tenant",
         "tags": ["Admin"],
         "security": [
           {

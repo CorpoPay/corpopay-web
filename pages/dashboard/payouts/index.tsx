@@ -52,6 +52,12 @@ async function fetchPayouts(): Promise<Payout[]> {
   return data;
 }
 
+async function fetchPayoutRail(): Promise<string | null> {
+  const { data, error } = await client.GET("/settlement/summary");
+  if (error || !data) throw error;
+  return data.payoutRail;
+}
+
 async function createPayout(body: { idempotencyKey: string; provider: Provider }): Promise<void> {
   const { error } = await client.POST("/payouts", { body });
   if (error) throw error;
@@ -82,6 +88,13 @@ export default function PayoutsPage() {
     queryFn: fetchPayouts,
   });
 
+  const { data: payoutRail } = useQuery({
+    queryKey: ["settlement-summary"],
+    queryFn: fetchPayoutRail,
+  });
+
+  const isManualRail = (payoutRail ?? "MANUAL") === "MANUAL";
+
   const createMutation = useMutation({
     mutationFn: () => createPayout({ idempotencyKey, provider }),
     onSuccess: () => {
@@ -96,7 +109,12 @@ export default function PayoutsPage() {
     mutationFn: processPayout,
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["payouts"] });
-      toast.success("Payout processing", "The payout has been dispatched to the provider.");
+      toast.success(
+        isManualRail ? "Payout marked paid" : "Payout processing",
+        isManualRail
+          ? "Out-of-band transfer confirmed — funds moved to paid out."
+          : "The payout has been dispatched to the provider.",
+      );
     },
     onError: (e) => toast.error("Process failed", getErrorMessage(e) || "Please try again."),
   });

@@ -71,7 +71,10 @@ export type AuditAction =
   | "INSTALLMENT_PLAN_CREATED"
   | "INSTALLMENT_PLAN_UPDATED"
   | "INSTALLMENT_PLAN_DELETED"
-  | "INSTALLMENT_AGREEMENT_CANCELLED";
+  | "INSTALLMENT_AGREEMENT_CANCELLED"
+  | "PAYOUT_MARKED_PAID"
+  | "DISPUTE_RESOLVED"
+  | "RISK_OVERRIDE";
 export const AuditActionValues = [
   "PROVIDER_CONFIG_CREATED",
   "PROVIDER_CONFIG_UPDATED",
@@ -98,6 +101,9 @@ export const AuditActionValues = [
   "INSTALLMENT_PLAN_UPDATED",
   "INSTALLMENT_PLAN_DELETED",
   "INSTALLMENT_AGREEMENT_CANCELLED",
+  "PAYOUT_MARKED_PAID",
+  "DISPUTE_RESOLVED",
+  "RISK_OVERRIDE",
 ] as const;
 
 export type InstallmentAgreementStatus =
@@ -247,6 +253,9 @@ export const PayoutStatusValues = [
 
 export type PayoutMethod = "BANK_TRANSFER" | "CARD" | "WALLET";
 export const PayoutMethodValues = ["BANK_TRANSFER", "CARD", "WALLET"] as const;
+
+export type PayoutRail = "STRIPE_CONNECT" | "MANUAL";
+export const PayoutRailValues = ["STRIPE_CONNECT", "MANUAL"] as const;
 
 export type DisputeStatus = "OPEN" | "WON" | "LOST";
 export const DisputeStatusValues = ["OPEN", "WON", "LOST"] as const;
