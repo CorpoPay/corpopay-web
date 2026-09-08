@@ -75,5 +75,10 @@
     "*.{json,md,css}": [
       "biome format --write --no-errors-on-unmatched"
     ]
+  },
+  "overrides": {
+    "qs": "^6.16.0",
+    "browserslist": "^4.28.7",
+    "postcss-selector-parser": "^6.1.3"
   }
 }
