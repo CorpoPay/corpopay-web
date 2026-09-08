@@ -142,10 +142,11 @@ jobs:
       - name: Run Playwright tests
         run: npm run e2e
 
-  # ── Lighthouse CI (perf/accessibility, non-blocking: advisory) ──────────────
+  # ── Lighthouse audit (a11y / best-practices / seo / performance; blocking) ──
   lighthouse:
     runs-on: ubuntu-latest
-    continue-on-error: true
+    env:
+      NEXT_PUBLIC_API_URL: http://localhost:4000
     steps:
       - uses: actions/checkout@v4
 
@@ -157,7 +158,22 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Lighthouse CI
-        run: npx lhci autorun
+      - name: Build
+        run: npm run build
+
+      - name: Audit with Lighthouse
         env:
-          NEXT_PUBLIC_API_URL: http://localhost:4000
+          LIGHTHOUSE_BASE_URL: http://localhost:3000
+        run: |
+          npm run start > /tmp/next.log 2>&1 &
+          echo $! > /tmp/next.pid
+          for i in $(seq 1 60); do
+            if curl -fsS http://localhost:3000/login > /dev/null; then break; fi
+            sleep 2
+          done
+          node scripts/lighthouse-check.mjs
+
+      - name: Stop server
+        if: always()
+        run: |
+          if [ -f /tmp/next.pid ]; then kill "$(cat /tmp/next.pid)" 2>/dev/null || true; fi
