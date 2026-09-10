@@ -24,15 +24,14 @@ Set `NEXT_PUBLIC_API_URL` in `.env.local` to override the default.
 
 ## The contract
 
-The API's OpenAPI spec is the single source of truth. The web vendors generated
-types via:
+The API's OpenAPI spec is the single source of truth, published as the
+`@corpopay/contract` npm package. The web installs it:
 
 ```bash
-# vendored in contract/ — regenerate from corpopay-api with `npm run contract:generate`
-cp ../corpopay-api/contract/{api-types.d.ts,openapi.json,enums.ts} contract/
+npm install @corpopay/contract
 ```
 
-Never hand-edit the generated `contract/*` files, or hand-write domain types,
+Never hand-edit the generated types, or hand-write domain types,
 statuses, or money literals.
 
 ## Before you submit
