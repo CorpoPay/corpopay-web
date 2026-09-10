@@ -12,6 +12,10 @@
 [![Next.js 16](https://img.shields.io/badge/Next.js-16-000000)](https://nextjs.org)
 [![React 19](https://img.shields.io/badge/React-19-61DAFB)](https://react.dev)
 
+> [!NOTE]
+> This repository is no longer actively maintained and is provided as-is for
+> reference under the MIT License.
+
 **Browser frontend for CorpoPay** — **Next.js 16 (pages router) + React 19**. Four
 surfaces: merchant dashboard, admin backoffice, hosted checkout, and the paywall
 relay page. Talks to `corpopay-api` through a generated openapi-fetch client.
