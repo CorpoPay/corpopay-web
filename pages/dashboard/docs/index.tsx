@@ -1874,6 +1874,46 @@ export default function DocsPage() {
           </p>
         </div>
 
+        {/* ── SDK callout ─────────────────────────────────────────────── */}
+        <Card>
+          <CardHeader className="pb-2">
+            <div className="flex items-center gap-2">
+              <BookOpen className="h-4 w-4 text-primary" />
+              <CardTitle className="text-sm">Prefer a typed client? Use the SDK</CardTitle>
+            </div>
+            <CardDescription>
+              This playground drives the REST API directly. In your own code, install{" "}
+              <code className="font-mono">@corpopay/sdk</code> for typed methods, API-key auth, and
+              webhook verification — no hand-rolled HTTP.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <CodeBlock
+              code={`npm i @corpopay/sdk
+
+import { createCorpoPay, PaymentIntents } from "@corpopay/sdk";
+
+const corpoPay = createCorpoPay({
+  baseUrl: "https://api.corpopay.site",
+  apiKey: "cp_live_…",
+});
+
+const { data } = await PaymentIntents.createPaymentIntent({
+  client: corpoPay.client,
+  body: { provider: "STRIPE", amount: 250000, currency: "MAD" },
+});`}
+            />
+            <a
+              href="https://www.npmjs.com/package/@corpopay/sdk"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-2 inline-flex items-center gap-1 text-xs text-primary hover:underline"
+            >
+              <ExternalLink className="h-3.5 w-3.5" /> npm · @corpopay/sdk
+            </a>
+          </CardContent>
+        </Card>
+
         {/* ── Visual flow stepper ─────────────────────────────────────── */}
         <FlowStepper intentId={activeIntentId} status={currentStatus} />
 
