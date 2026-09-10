@@ -2,6 +2,14 @@
   "name": "corpopay-web",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://corpopay.site",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CorpoPay/corpopay-web.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CorpoPay/corpopay-web/issues"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

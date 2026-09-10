@@ -8,6 +8,7 @@
 [![CodeQL](https://github.com/CorpoPay/corpopay-web/actions/workflows/codeql.yml/badge.svg)](https://github.com/CorpoPay/corpopay-web/actions/workflows/codeql.yml)
 [![release](https://github.com/CorpoPay/corpopay-web/actions/workflows/release-please.yml/badge.svg)](https://github.com/CorpoPay/corpopay-web/actions/workflows/release-please.yml)
 [![License](https://img.shields.io/github/license/CorpoPay/corpopay-web)](LICENSE)
+[![Website](https://img.shields.io/badge/website-corpopay.site-6e3ff6)](https://corpopay.site)
 [![Next.js 16](https://img.shields.io/badge/Next.js-16-000000)](https://nextjs.org)
 [![React 19](https://img.shields.io/badge/React-19-61DAFB)](https://react.dev)
 
