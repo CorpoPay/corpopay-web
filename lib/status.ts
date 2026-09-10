@@ -2,12 +2,12 @@
  * Statuses — single source of truth for the UI mapping (badge variant + label).
  *
  * The status *types* are generated from the API's Prisma schema (the real source
- * of truth) and consumed from the vendored `contract/enums.ts` (kept in sync by
- * corpopay-api's `contract:generate`). `ProviderHealthStatus` is re-exported here
- * for the providers admin page. Do NOT hand-write a status union — if an enum
- * value changes in the API, refresh `contract/` and the generated types follow.
+ * of truth) and consumed from the published `@corpopay/contract` package.
+ * `ProviderHealthStatus` is re-exported here for the providers admin page. Do NOT
+ * hand-write a status union — if an enum value changes in the API, bump the
+ * `@corpopay/contract` dependency and the generated types follow.
  */
-export type { ProviderHealthStatus } from "../contract/enums";
+export type { ProviderHealthStatus } from "@corpopay/contract";
 
 /**
  * The `Badge` component variants (see `components/ui/badge.tsx`). Keeping this
